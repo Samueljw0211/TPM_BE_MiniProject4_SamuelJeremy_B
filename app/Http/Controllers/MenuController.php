@@ -92,6 +92,18 @@ class MenuController extends Controller
     }
 
     public function deleteMenu($id){
+        $menu =menu::findOrFail($id);
+
+
+            // Delete the old image if it exists
+            if ($menu->image) {
+                $oldImagePath = public_path('storage/images/' . $menu->image);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath); // Remove the old image file
+                }
+            }
+
+
         menu::destroy($id);
 
         return redirect(route('welcome'));
