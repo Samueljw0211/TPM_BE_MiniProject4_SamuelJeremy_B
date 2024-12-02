@@ -40,15 +40,20 @@
 
     <div class="container">  <div class="row row-cols-md-4">  @foreach ($menus as $menu)
         <div class="col mb-3">  <div class="card" style="width: 18rem;">
-            <img src="" class="card-img-top" alt="...">
+            <img src="{{ asset('/storage/images/'.$menu->image) }}" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">Menu Name: {{$menu->menuName}}</h5>
                 <p class="card-text">Menu Description: {{$menu->menuDesc}}</p>
                 <p class="card-text">Menu Date Added: {{$menu->menuDateAdded}}</p>
                 <p class="card-text">Menu Price: ${{$menu->menuPrice}}</p>
                 <p class="card-text">Menu Category: {{$menu->category->category_name}}</p>
-                <a href="" class="btn btn-success">Edit</a>
-            <button type="" class="btn btn-danger">Delete</button>
+                <a href="{{ route('editMenu', $menu->id) }}" class="btn btn-success">Edit</a>
+                <form action="{{ route('deleteMenu', $menu->id )}}" method="POST">
+                    @method('delete')
+                    @csrf
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+
             </div>
         </div>
         </div>

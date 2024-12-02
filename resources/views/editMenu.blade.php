@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Create Menu</title>
+    <title>Edit Menu</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
@@ -29,24 +29,24 @@
     </nav>
 
     <div class="p-5">
-        <h1 class="text-center">Create Menu</h1>
-        <form action="{{route('store')}}" method="POST" enctype="multipart/form-data">
+        <h1 class="text-center">Edit Menu</h1>
+        <form action="{{ route('updateMenu', $menu->id) }}" method="POST" enctype="multipart/form-data">
 
             @csrf
+            @method('patch')
 
             <div class="mb-3">
                 <label for="" class="form-label">Menu Name</label>
-                <input value="{{ old('menuname') }}" type="text" class="form-control" id="" name="menuname">
+                <input value="{{ $menu->menuName }}" type="text" class="form-control" id="" name="menuname">
             </div>
 
             @error('menuname')
             <div class="alert alert-danger" role="alert"> {{ $message }}</div>
             @enderror
 
-
             <div class="mb-3">
                 <label for="" class="form-label">Menu Description</label>
-                <input value="{{ old('menudesc') }}" type="text" class="form-control" id="" name="menudesc">
+                <input value="{{ $menu->menuDesc }}" type="text" class="form-control" id="" name="menudesc">
             </div>
 
             @error('menudesc')
@@ -55,7 +55,7 @@
 
             <div class="mb-3">
                 <label for="" class="form-label">Menu Date Added</label>
-                <input value="{{ old('menudate') }}"type="date" class="form-control" id="" name="menudate">
+                <input value="{{ $menu->menuDateAdded }}"type="date" class="form-control" id="" name="menudate">
             </div>
 
             @error('menudate')
@@ -64,7 +64,7 @@
 
             <div class="mb-3">
                 <label for="" class="form-label">Price</label>
-                <input value="{{ old('menuprice') }}" type="number" class="form-control" id="" name="menuprice">
+                <input value="{{ $menu->menuPrice }}" type="number" class="form-control" id="" name="menuprice">
             </div>
 
             @error('menuprice')
@@ -73,21 +73,25 @@
 
             <div class="mb-3">
                 <label for="" class="form-label">Image</label>
-                <input  type="file" class="form-control" id="" name="image">
+                @if ($menu->image)
+                <div class="mb-2">
+                    <img src="{{ asset('storage/images/' . $menu->image) }}" alt="Menu image" style="max-width: 150px; height: auto; border: 1px solid #ccc; padding: 5px;">
+                </div>
+                @else
+                    <p>No image uploaded yet.</p>
+                @endif
+
+                <!-- Input file -->
+                <input type="file" class="form-control" id="" name="image">
             </div>
-
-            @error('image')
-            <div class="alert alert-danger" role="alert"> {{ $message }}</div>
-            @enderror
-
-            <div class="mb-3">
+            {{-- <div class="mb-3">
                 <label for="" class="form-label">Menu Category</label>
                 <select class="form-select" aria-label="Default select example" name="categoryname">
                     @foreach ($categories as $category)
                         <option value="{{ $category->id }}">{{ $category->category_name }}</option>
                     @endforeach
                 </select>
-            </div>
+            </div> --}}
 
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
