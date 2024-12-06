@@ -22,7 +22,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Create</a>
-                    </li>
+                    </li> 
                 </ul>
             </div>
         </div>

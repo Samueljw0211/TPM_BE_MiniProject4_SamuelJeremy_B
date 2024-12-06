@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\MyEmail;
 use App\Models\category;
 use App\Models\menu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class MenuController extends Controller
 {
@@ -36,6 +38,13 @@ class MenuController extends Controller
         'category_id'=> $request->categoryname,
         'image'=> $fileName
     ]);
+
+    // kita pakai model email
+    Mail::to ('user@gmail.com')->send( new MyEmail([
+        'menuName'=>$request->menuname,
+        'menuDesc'=>$request->menudesc,
+        ]));
+
     return redirect(route('welcome'));
     }
 
