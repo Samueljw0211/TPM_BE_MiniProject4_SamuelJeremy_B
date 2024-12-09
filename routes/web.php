@@ -27,7 +27,7 @@ route::delete('/delete/{id}',[MenuController::class,'deleteMenu'])->name('delete
 Route::get('/register',[AuthController::class,'showRegisterForm'])->name('register');
 Route::post('/register',[AuthController::class,'Register'])->name('registerStore');
 
-Route::get('/login',[AuthController::class,'showLoginForm'])->name('login');
+Route::get('/login',[AuthController::class,'showLoginForm'])->name('loginUi');
 Route::post('/login',[AuthController::class,'login'])->name('loginstore');
 
 Route::get('/logout',[AuthController::class,'logout'])->name('logout');
